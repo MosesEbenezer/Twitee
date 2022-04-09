@@ -67,21 +67,22 @@ export abstract class AbstractService {
     };
   }
 
-  // async findOne(condition: any, relations?: any): Promise<any> {
-  //   let data: any;
+  async findOne(condition: any, relations?: any): Promise<any> {
+    let data: any;
 
-  //   if (relations) {
-  //     data = await this.respository.findOne(condition, {
-  //       relations: isArray(relations) ? relations : [`${relations}`],
-  //       order: {
-  //         created_at: 'DESC',
-  //       },
-  //     });
-  //   } else {
-  //     data = await this.respository.findOne(condition);
-  //   }
-  //   return data;
-  // }
+    if (relations) {
+      data = await this.respository.findOne({
+        where: condition,
+        relations: isArray(relations) ? relations : [`${relations}`],
+        order: {
+          created_at: 'DESC',
+        },
+      });
+    } else {
+      data = await this.respository.findOne(condition);
+    }
+    return data;
+  }
 
   async findAllV2(relations?: Array<string>, query?: any): Promise<any[]> {
     let data: any;
@@ -98,22 +99,22 @@ export abstract class AbstractService {
     return data;
   }
 
-  // async findOneWithSearcch(condition: any, relations: string[]) {
-  //   let data: any;
+  async findOneWithSearcch(condition: any, relations: string[]) {
+    let data: any;
 
-  //   if (relations) {
-  //     data = await this.respository.findOne(condition, {
-  //       relations: relations,
-  //       order: {
-  //         created_at: 'DESC',
-  //       },
-  //     });
-  //   } else {
-  //     data = await this.respository.findOne(condition);
-  //   }
-  //   return data;
-  //   // return await this.respository.findOne(condition);
-  // }
+    if (relations) {
+      data = await this.respository.findOne({
+        where: condition,
+        relations: relations,
+        order: {
+          created_at: 'DESC',
+        },
+      });
+    } else {
+      data = await this.respository.findOne(condition);
+    }
+    return data;
+  }
 
   async update(id: number, data: any): Promise<any> {
     await this.respository.update(id, data);
