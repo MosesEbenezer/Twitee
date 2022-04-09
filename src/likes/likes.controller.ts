@@ -1,8 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseInterceptors,
+} from '@nestjs/common';
 import { LikesService } from './likes.service';
 import { CreateLikeDto } from './dto/create-like.dto';
 import { UpdateLikeDto } from './dto/update-like.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
 
+@ApiTags('Likes')
+@UseInterceptors(ResponseInterceptor)
 @Controller('likes')
 export class LikesController {
   constructor(private readonly likesService: LikesService) {}
@@ -17,10 +30,10 @@ export class LikesController {
     return this.likesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.likesService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.likesService.findOne(+id);
+  // }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateLikeDto: UpdateLikeDto) {

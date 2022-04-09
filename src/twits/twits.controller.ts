@@ -1,9 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseInterceptors,
+} from '@nestjs/common';
 import { TwitsService } from './twits.service';
 import { CreateTwitDto } from './dto/create-twit.dto';
 import { UpdateTwitDto } from './dto/update-twit.dto';
+import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Twits')
 @Controller('twits')
+@UseInterceptors(ResponseInterceptor)
 export class TwitsController {
   constructor(private readonly twitsService: TwitsService) {}
 
@@ -17,10 +30,10 @@ export class TwitsController {
     return this.twitsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.twitsService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.twitsService.findOne(+id);
+  // }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTwitDto: UpdateTwitDto) {
