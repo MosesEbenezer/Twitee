@@ -1,9 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseInterceptors,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 
+@ApiTags('User Authentication')
 @Controller('auth')
+@UseInterceptors(ResponseInterceptor)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

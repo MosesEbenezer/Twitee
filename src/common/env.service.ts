@@ -25,8 +25,9 @@ export interface EnvData {
 
   // Base Urlss
   BASE_URL: string;
+  NOTN_BASE_URL: string;
   FRONT_END_BASE_URL: string;
-  VERIFY_EMAIL_NOTN_LOGO: string;
+  // VERIFY_EMAIL_NOTN_LOGO: string;
 }
 
 export class EnvService {
