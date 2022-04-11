@@ -3,14 +3,12 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseInterceptors,
 } from '@nestjs/common';
 import { TwitsService } from './twits.service';
 import { CreateTwitDto } from './dto/create-twit.dto';
-import { UpdateTwitDto } from './dto/update-twit.dto';
 import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -21,27 +19,35 @@ export class TwitsController {
   constructor(private readonly twitsService: TwitsService) {}
 
   @Post()
-  create(@Body() createTwitDto: CreateTwitDto) {
-    return this.twitsService.create(createTwitDto);
+  async create(@Body() createTwitDto: CreateTwitDto) {
+    const twit = await this.twitsService.create(createTwitDto);
+    return { data: twit };
   }
 
   @Get()
-  findAll() {
-    return this.twitsService.findAll();
+  async findAll() {
+    const twits = await this.twitsService.findAll();
+    return { data: twits };
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.twitsService.findOne(+id);
-  // }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTwitDto: UpdateTwitDto) {
-    return this.twitsService.update(+id, updateTwitDto);
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const twit = await this.twitsService.findOne(+id);
+    return { data: twit };
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.twitsService.remove(+id);
+  // one user twit
+  @Get(':id/:user_id')
+  async findOneUserTwit(
+    @Param('id') id: string,
+    @Param('user_id') user_id: string,
+  ) {
+    const twit = await this.twitsService.findOneUserTwit(id, user_id);
+    return { data: twit };
+  }
+
+  @Delete(':id/:user_id')
+  remove(@Param('id') id: string, @Param('user_id') user_id: string) {
+    return this.twitsService.deleteTwit(id, user_id);
   }
 }

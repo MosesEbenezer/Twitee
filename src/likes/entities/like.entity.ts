@@ -14,9 +14,6 @@ export class Like {
   id: number;
 
   @Column()
-  like: number; // not greater than one for each user
-
-  @Column()
   user_id: number;
 
   @ManyToOne(() => Twit, (twit) => twit.likes)

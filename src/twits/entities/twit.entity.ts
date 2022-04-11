@@ -15,12 +15,22 @@ export class Twit {
   id: number;
 
   @Column()
+  user_id: number;
+
+  @Column()
   content: string;
 
-  @OneToMany(() => Comment, (comment) => comment.twit)
+  @Column()
+  img_url: string;
+
+  @OneToMany(() => Comment, (comment) => comment.twit, {
+    cascade: ['insert', 'update', 'remove'],
+  })
   comments: Comment[];
 
-  @OneToMany(() => Like, (like) => like.twit)
+  @OneToMany(() => Like, (like) => like.twit, {
+    cascade: ['insert', 'update', 'remove'],
+  })
   likes: Like[];
 
   @CreateDateColumn({
