@@ -12,11 +12,14 @@ export class LikesService extends AbstractService {
     super(likeRepo);
   }
 
-  async toggleLike(twit_id: string, user_id: string) {
+  async toggleLike(twit_id: number, user_id: number) {
     const like = await this.findOne({
-      twit: { id: twit_id },
       user_id: user_id,
+      twit: twit_id,
     });
+
+    console.log('twit_id', twit_id);
+    console.log('user_id', user_id);
 
     if (!like) {
       await this.create({
@@ -26,5 +29,7 @@ export class LikesService extends AbstractService {
     } else {
       await this.remove(like.id);
     }
+
+    return true;
   }
 }

@@ -1,7 +1,8 @@
-import { Controller, Get, Param, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
 import { LikesService } from './likes.service';
 import { ApiTags } from '@nestjs/swagger';
 import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
+import { ToggleLikeDto } from './dto/toggle-like.dtp';
 
 @ApiTags('Likes')
 @UseInterceptors(ResponseInterceptor)
@@ -9,12 +10,13 @@ import { ResponseInterceptor } from 'src/common/interceptors/response.intercepto
 export class LikesController {
   constructor(private readonly likesService: LikesService) {}
 
-  @Get()
-  async toggleLike(
-    @Param('twit_id') twit_id: string,
-    @Param('user_id') user_id: string,
-  ) {
-    const like = await this.likesService.toggleLike(twit_id, user_id);
+  @Post()
+  async toggleLike(@Body() toggleLikeDto: ToggleLikeDto) {
+    const { twid_id, user_id } = toggleLikeDto;
+    console.log('twit_id param', twid_id);
+    console.log('user_id param', user_id);
+
+    const like = await this.likesService.toggleLike(twid_id, user_id);
     return { data: like };
   }
 }

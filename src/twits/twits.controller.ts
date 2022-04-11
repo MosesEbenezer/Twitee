@@ -26,7 +26,7 @@ export class TwitsController {
 
   @Get()
   async findAll() {
-    const twits = await this.twitsService.findAll();
+    const twits = await this.twitsService.findAllV2(['comments', 'likes']);
     return { data: twits };
   }
 
