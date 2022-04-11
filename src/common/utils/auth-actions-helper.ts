@@ -1,7 +1,7 @@
 // import { AuthRequestType } from 'src/auth/entities/auth.entity';
 
 export const auth_actions_html = (data: any) => {
-  const logo = `https://hxsbnt.stripocdn.email/content/guids/CABINET_887f48b6a2f22ad4fb67bc2a58c0956b/images/93351617889024778.png`;
+  const logo = ``;
   const heading_logo = data.heading_logo;
   const heading = data.heading;
   const message1 = data.message1;
@@ -120,7 +120,7 @@ export const auth_actions_html = (data: any) => {
                       </table></td> 
                     </tr> 
                     <tr> 
-                     <td align="center" style="padding:0;Margin:0;padding-bottom:35px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:18px;color:#333333;font-size:12px">Style Casual&nbsp;© 2021 Style Casual, Inc. All Rights Reserved.</p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:18px;color:#333333;font-size:12px">4562 Hazy Panda Limits, Chair Crossing, Kentucky, US, 607898</p></td> 
+                     <td align="center" style="padding:0;Margin:0;padding-bottom:35px"><p></p></td> 
                     </tr> 
                     <tr> 
                      <td style="padding:0;Margin:0"> 

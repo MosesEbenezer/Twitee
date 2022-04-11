@@ -1,10 +1,10 @@
 import { join } from 'path';
 import { EnvService } from './src/common/env.service';
-import { DataSourceOptions } from 'typeorm';
+import { ConnectionOptions } from 'typeorm';
 
 const config = new EnvService().read();
 
-const connectionOptions: DataSourceOptions = {
+const connectionOptions: ConnectionOptions = {
   type: 'mysql',
   host: config.DB_HOST,
   port: config.DB_PORT,
@@ -17,9 +17,9 @@ const connectionOptions: DataSourceOptions = {
   migrationsRun: false,
   logging: ['warn', 'error'],
   migrations: [join(__dirname, 'src/migrations/*{.ts,.js}')],
-  // cli: {
-  //   migrationsDir: 'src/migrations',
-  // },
+  cli: {
+    migrationsDir: 'src/migrations',
+  },
 };
 console.log('ENV orm.ts', process.env.DB_PASSWORD);
 export = connectionOptions;

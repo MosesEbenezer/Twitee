@@ -40,10 +40,12 @@ export class AuthService extends AbstractService {
     await queryRunner.startTransaction();
 
     const hash = await this.hashDetail(registerDto.password);
+    const name = registerDto.email.split('@')[0];
 
     try {
       const user_data = {
         ...others,
+        name: name,
         password: hash,
       };
 
@@ -174,10 +176,10 @@ export class AuthService extends AbstractService {
     const data = {
       heading_logo: ``,
       heading: `Welcome To TWITEE`,
-      message1: `We're excited to have you onboard. You're one step closer to completing your registration`,
-      message2: `Please use the code below to verify your email.`,
+      message1: `We're excited to have you onboard.`,
+      message2: `How was your registration experience?`,
       message3: ``,
-      cta: `CONFIRM YOUR EMAIL`,
+      cta: `Contact Us With Any Enquiries`,
       request_otp: request_otp,
       // url: `${FRONT_END_BASE_URL}/verify/user_id/email/token`,
       type: AuthRequestType.EMAIL_VERIFY,

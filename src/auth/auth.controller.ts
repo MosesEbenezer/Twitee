@@ -3,16 +3,14 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
 import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { AuthDto } from './dto/auth.dto';
+import { LoginDto } from './dto/login.dto';
 
 @ApiTags('User Authentication')
 @Controller('auth')
@@ -20,28 +18,28 @@ import { UpdateAuthDto } from './dto/update-auth.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
-  create(@Body() createAuthDto: CreateAuthDto) {
-    return this.authService.create(createAuthDto);
+  @Post('register')
+  async register(@Body() registerDto: AuthDto) {
+    const register = await this.authService.register(registerDto);
+    return { data: register };
+  }
+
+  @Post('login')
+  async login(@Body() loginDto: LoginDto) {
+    const { email, password } = loginDto;
+    const register = await this.authService.login(email, password);
+    return { data: register };
   }
 
   @Get()
-  findAll() {
-    return this.authService.findAll();
+  async findAll() {
+    const ress = await this.authService.findAll();
+    return { data: ress };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
+  async findOne(@Param('id') id: string) {
+    const ress = await this.authService.findOne(+id);
+    return { data: ress };
   }
 }
